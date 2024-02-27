@@ -1,7 +1,11 @@
 <?php
 
 require "function.php";
-require "database.php"
+require "database.php";
+
+
+$config = require("config.php");
+
 
 
 $db = new Database();
