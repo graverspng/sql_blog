@@ -2,19 +2,21 @@
 
 class Database {
 
-    private $pdo;
+  private $pdo;
 
-    public function __construct(){
 
-        
-        $connection_string = ("mysql:" . http_build_query($config, "", ";"));
-        $pdo = new PDO($connection_string);
-        $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    }
-        $query = $pdo-> prepare($query_string);
+  public function __construct($config)
+  {
+    $connection_string = "mysql:" . http_build_query($config, "", ";");
+    $this->pdo = new PDO($connection_string);
+    $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+  }
 
-        $query-> execute();
 
-        return $query;
-    
-};
+  public function execute($query_string, $params) {
+    $query = $this->pdo->prepare($query_string);
+    $query->execute($params);
+
+    return $query;
+  }
+}
